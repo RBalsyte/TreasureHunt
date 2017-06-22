@@ -1,0 +1,68 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:2:1-23:12
+	package
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:3:5-36
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+application
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:5:5-21:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Schnecke\.android\build-cache\5d3f367b1fd92543a07f4393cf1cb603e0217337\output\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:design:23.4.0] C:\Users\Schnecke\.android\build-cache\9e5c0e23ab5da73e1147a651b8424f2227c22085\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Schnecke\.android\build-cache\80255a251b8cdd4cced82579c162932cc979224a\output\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\Schnecke\.android\build-cache\25393f6a313cc863e5cbe4f479352a41498eb99f\output\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\Schnecke\.android\build-cache\aa261d9a84de7c6dde713a61c32510b9d774d87f\output\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Schnecke\.android\build-cache\cd1c71e3c1b0933bfea85bfaab58bc793e2c3aa7\output\AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:8:9-41
+	android:supportsRtl
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:9:9-35
+	android:allowBackup
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:7:9-43
+	android:theme
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:10:9-40
+activity#embedded.treasurehunt.MainActivity
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:11:9-20:20
+	android:label
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:13:13-45
+	android:theme
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:14:13-56
+	android:name
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:12:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:15:13-19:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:18:17-77
+	android:name
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:18:27-74
+uses-sdk
+INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Schnecke\.android\build-cache\5d3f367b1fd92543a07f4393cf1cb603e0217337\output\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:design:23.4.0] C:\Users\Schnecke\.android\build-cache\9e5c0e23ab5da73e1147a651b8424f2227c22085\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.4.0] C:\Users\Schnecke\.android\build-cache\be3f59d6510f2c420bd34e59cc47b25ddb4eb0d4\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Schnecke\.android\build-cache\80255a251b8cdd4cced82579c162932cc979224a\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\Schnecke\.android\build-cache\25393f6a313cc863e5cbe4f479352a41498eb99f\output\AndroidManifest.xml:5:5-44
+MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\Schnecke\.android\build-cache\aa261d9a84de7c6dde713a61c32510b9d774d87f\output\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:23.4.0] C:\Users\Schnecke\.android\build-cache\cd1c71e3c1b0933bfea85bfaab58bc793e2c3aa7\output\AndroidManifest.xml:20:5-43
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:23.4.0] C:\Users\Schnecke\.android\build-cache\80255a251b8cdd4cced82579c162932cc979224a\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
