@@ -1,8 +1,13 @@
 package embedded.treasurehunt;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,75 +20,54 @@ import android.widget.ImageView;
 
 public class HintActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hint);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        // TODO remove this probably, because it was created by the template
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        final TextView instructionsTextView = (TextView) findViewById((R.id.instructionText));
+        final TextView instructionTextView = (TextView) findViewById((R.id.instructionText));
         // TODO set instruction text
-        instructionsTextView.setText("Instruction text");
-
-        final Button compassButton = (Button)findViewById(R.id.compassButton);
-        compassButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showCompass();
-                Log.d("compass button clicked.", "onCompassClick");
-            }
-        });
+        instructionTextView.setText( "Instructions:\n" + "blah blah blah");
 
         final Button mapButton = (Button)findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showMap();
-                Log.d("map button clicked.", "onMapClick");
+                Log.d("onMapClick", "map button clicked.");
+            }
+        });
+
+        final Button compassButton = (Button)findViewById(R.id.compassButton);
+        compassButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showCompass();
+                Log.d("onCompassClick", "compass button clicked.");
+            }
+        });
+
+        final Button checkLocationButton = (Button)findViewById(R.id.checkLocationButton);
+        checkLocationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                checkLocation();
+                Log.d("onCheckLocationClick", "check location button clicked.");
             }
         });
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void showCompass(){
-        //TODO
+        //TODO switch activity
     }
 
     private void showMap(){
-        //TODO
+        //TODO switch activity
     }
 
-
+    private void checkLocation(){
+        //TODO switch activity
+        Intent intentLocation = new Intent(this, LocationActivity.class);
+        this.startActivity(intentLocation);
+        Log.d("Hint layout ", "Layout changed to location.");
+    }
 }
