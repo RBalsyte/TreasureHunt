@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">Treasure Hunt</string>
-    <string name="hint_name">Hint</string>
-    <string name="nextHint_name">NextHint</string>
-    <string name="location_name">Location</string>
 </resources>

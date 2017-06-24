@@ -1,10 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="embedded.treasurehunt.HintActivity">
+    android:paddingLeft="@dimen/compass_horizontal_margin"
+    android:paddingRight="@dimen/compass_horizontal_margin"
+    android:paddingTop="@dimen/compass_vertical_margin"
+    android:paddingBottom="@dimen/compass_vertical_margin"
+    android:background="@drawable/map2"
+    android:orientation="vertical"
+    tools:context=".HintActivity">
 
-    <include layout="@layout/content_hint" />
+    <TextView
+        android:id="@+id/instructionText"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="serif-monospace"
+        android:textAlignment="viewStart"
+        android:layout_gravity="start"
+        android:textColor="#280600"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/compassButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="#280600"
+        android:fontFamily="serif-monospace"
+        android:text="Start This Task"
+        android:textColor="#ffc15c"
+        android:textSize="24sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="serif-monospace"
+        android:text="Instructions"
+        android:textAlignment="center"
+        android:textColor="#280600"
+        android:textSize="30sp" />
+
+</RelativeLayout>

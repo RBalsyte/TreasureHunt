@@ -1,3 +1,4 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="compass_horizontal_margin">16dp</dimen>
+    <dimen name="compass_vertical_margin">16dp</dimen>
 </resources>
