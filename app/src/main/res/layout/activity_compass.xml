@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -37,21 +38,21 @@
         android:fontFamily="serif-monospace"
         android:text="Lat:"
         android:textColor="#280600"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/longitudeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/compass"
+        android:layout_toEndOf="@+id/compassArrow"
+        android:layout_toRightOf="@+id/compassArrow"
         android:fontFamily="serif-monospace"
         android:text="Long:"
         android:textColor="#280600"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_above="@+id/compass"
-        android:layout_toRightOf="@+id/compassArrow"
-        android:layout_toEndOf="@+id/compassArrow" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/degreesTextView"
@@ -77,21 +78,23 @@
         android:fontFamily="serif-monospace"
         android:text="0"
         android:textColor="#280600"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/longTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/compass"
-        android:layout_toEndOf="@+id/longitudeTextView"
-        android:layout_toRightOf="@+id/longitudeTextView"
         android:fontFamily="serif-monospace"
         android:text="0"
         android:textColor="#280600"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/longitudeTextView"
+        android:layout_alignBottom="@+id/longitudeTextView"
+        android:layout_toRightOf="@+id/longitudeTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/statusTextView"

@@ -186,8 +186,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     public void onLocationChanged(Location location) {
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
-        longTextView.setText(longitude + "");
-        longTextView.setText(latitude + "");
+        longTextView.setText(String.format( "%.2f", longitude ));
+        latTextView.setText(String.format( "%.2f", latitude ));
         Log.d("onLocationChanged", "Latitude" + latitude);
         Log.d("onLocationChanged", "Longitude" + longitude);
 
@@ -233,7 +233,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, magneticSensor, SensorManager.SENSOR_DELAY_GAME);
 
-        boolean isOn = isNetworkOn()&& isGPSOn();
+        boolean isOn = isNetworkOn() && isGPSOn();
         if (isOn){
             int finePermissionCheck = ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION);
@@ -248,12 +248,14 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                         1340);
                 // TODO show error msg
-                return;
             }
 
             // request location updates every second independent from distance (0)
             // (minDistance -> minimum distance between location updates, in meters)
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, this);
+            Log.d("onStart", "Location listener added");
+
         }
     }
 
@@ -281,6 +283,12 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     private void startGesture(){
+        //TODO
+    }
 
+
+    private boolean doShakeGesture(){
+
+        return false;
     }
 }
