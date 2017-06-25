@@ -1,6 +1,7 @@
 package embedded.treasurehunt;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,9 @@ public class GestureActivity extends AppCompatActivity{
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
 
+    private TextView failedTextView;
+    private Button tryAgainButton;
+
     private long lastUpdate;
     private float x,y,z;
     private float last_x,last_y,last_z;
@@ -48,6 +54,8 @@ public class GestureActivity extends AppCompatActivity{
     private Hint currentHint;
     private GestureType gestureType;
 
+    private boolean isLastHint;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,22 +66,26 @@ public class GestureActivity extends AppCompatActivity{
         treasure = (Treasure)intent.getSerializableExtra("treasure");
         currentHintPos = intent.getIntExtra("currentHintPos", -1);
         currentHint = treasure.getHints().get(currentHintPos);
-        gestureType = currentHint.getGestureType();
-
-        
-
-        AlertDialog.Builder popupBuilder = new AlertDialog.Builder(this);
-        alertTextView = new TextView(this);
-        alertTextView.setGravity(Gravity.CENTER);
-        alertTextView.setTextSize(32);
-        popupBuilder.setView(alertTextView);
-
-        counterAlertDialog = popupBuilder.create();
-        counterAlertDialog.setTitle("");
-        counterAlertDialog.setCancelable(false);
+        //gestureType = currentHint.getGestureType();
+        gestureType = GestureType.Shake;
+        isLastHint = currentHintPos == (treasure.getHints().size() - 1);
 
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        failedTextView = (TextView) findViewById(R.id.failedTextView);
+        failedTextView.setVisibility(View.INVISIBLE);
+        tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
+        tryAgainButton.setVisibility(View.INVISIBLE);
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startCounter();
+                Log.d("onClick", "Try again button clicked.");
+            }
+        });
+
+        alertTextView = new TextView(this);
+        counterAlertDialog = makeAlertDialog(alertTextView, false, null, null);
     }
 
     @Override
@@ -213,36 +225,54 @@ public class GestureActivity extends AppCompatActivity{
         public void onFinish() {
 
             if (!success){
-
-
+                Log.d("onFinish", "failed");
+                failedTextView.setText("You failed to do the correct gesture.");
+                failedTextView.setVisibility(View.VISIBLE);
+                tryAgainButton.setVisibility(View.VISIBLE);
             }else{
-                //TODO show another dialog
+                TextView finishView = new TextView(GestureActivity.this);
+                String textToDisplay;
+                String okButtonText;
+                if (isLastHint){
+                    textToDisplay = "Congratulations, you have finished the game!";
+                    okButtonText = "OK";
+                }else{
+                    textToDisplay = "Great, you have finished this task.";
+                    okButtonText = "Proceed";
+                }
+                finishView.setText(textToDisplay);
+                makeAlertDialog(finishView, true, okButtonText, new StartNewHintListener()).show();
+                Log.d("onFinish", "succeeded");
             }
             unregisterListener(listener);
         }
     }
 
-    private AlertDialog.Builder makeOkCancelAlertDialog(String title){
+    private AlertDialog makeAlertDialog(TextView view, boolean addOKButton, String okButtonText, DialogInterface.OnClickListener okButtonListener){
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        adb.setTitle(title);
 
-        TextView view = new TextView(this);
         view.setGravity(Gravity.CENTER);
         view.setTextSize(32);
         adb.setView(view);
 
-        adb.setIcon(android.R.drawable.ic_dialog_alert);
-        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                    //TODO restart
-            } });
+        if (addOKButton){
+            adb.setIcon(android.R.drawable.ic_dialog_alert);
+            adb.setPositiveButton(okButtonText, okButtonListener);
+        }
 
-        adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                //TODO do not restart
-            } });
-
-        return adb;
+        AlertDialog alertDialog = adb.create();
+        alertDialog.setCancelable(false);
+        return alertDialog;
     }
 
+    private class StartNewHintListener implements DialogInterface.OnClickListener{
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            // increment hint position, pass it on to the Compass Activity and finish this one
+            currentHintPos++;
+            GestureActivity.this.setResult(Activity.RESULT_OK, new Intent().putExtra("newHintPos", currentHintPos));
+            GestureActivity.this.finish();
+        }
+    }
 }

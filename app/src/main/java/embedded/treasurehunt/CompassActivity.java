@@ -1,6 +1,7 @@
 package embedded.treasurehunt;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -48,6 +49,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     private static final String TAG = "Compass";
+    private static final int REQUEST_PERFORM_GESTURE = 1;
 
     //TODO
     //private Hint hint = null;
@@ -124,6 +126,18 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         start();
         Log.d("onResume", "Compass Activity resumed");
         super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("onActivityResult", "returned from GestureActivity");
+        if (requestCode == REQUEST_PERFORM_GESTURE && resultCode == Activity.RESULT_OK) {
+            // pass the new current hint position to the hint activity
+            int newHintPos = data.getIntExtra("newHintPos", 0);
+            CompassActivity.this.setResult(Activity.RESULT_OK, new Intent().putExtra("newHintPos", newHintPos));
+            CompassActivity.this.finish();
+        }
+        // else it paused
     }
 
     private void adjustArrow() {
@@ -288,6 +302,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         Intent intentLocation = new Intent(this, GestureActivity.class);
         intentLocation.putExtra("treasure", treasure);
         intentLocation.putExtra("currentHintPos", currentHintPos);
-        this.startActivity(intentLocation);
+
+        startActivityForResult(intentLocation, REQUEST_PERFORM_GESTURE);
     }
 }

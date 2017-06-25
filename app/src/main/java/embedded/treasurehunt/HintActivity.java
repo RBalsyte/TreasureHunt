@@ -1,5 +1,6 @@
 package embedded.treasurehunt;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,6 +38,8 @@ import embedded.treasurehunt.model.Treasure;
 
 public class HintActivity extends AppCompatActivity {
 
+    private static final int REQUEST_NEW_HINT_POSITION = 0;
+
     private ImageView image;
     private TextView instructions;
     private Treasure treasure;
@@ -71,11 +74,28 @@ public class HintActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("onActivityResult", "returned from GestureActivity");
+        if (requestCode == REQUEST_NEW_HINT_POSITION && resultCode == Activity.RESULT_OK) {
+            // pass the new current hint position to the hint activity
+            int newHintPos = data.getIntExtra("newHintPos", 0);
+            if (newHintPos == (treasure.getHints().size() - 1)){
+                HintActivity.this.setResult(Activity.RESULT_OK, new Intent().putExtra("finished", true));
+                HintActivity.this.finish();
+            }
+            else {
+                //TODO update variables
+            }
+        }
+        // else it paused and doesn't need update
+    }
+
     private void showCompass(){
         Intent intentLocation = new Intent(this, CompassActivity.class);
         intentLocation.putExtra("treasure", treasure);
         intentLocation.putExtra("currentHintPos", currentHintPos);
-        this.startActivity(intentLocation);
+        startActivityForResult(intentLocation, REQUEST_NEW_HINT_POSITION);
     }
 
     private void getTreasure(){

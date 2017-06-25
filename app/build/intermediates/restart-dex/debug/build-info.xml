@@ -6,22 +6,22 @@
     density="xxhdpi"
     format="10"
     plugin-version="2.3.3"
-    timestamp="1498404586547"
+    timestamp="1498410654450"
     token="-1673099136288678479"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="414" />
+        duration="290" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="7" />
+        duration="36" />
     <task
         name="verifier"
-        duration="5" />
+        duration="10" />
 
     <artifact
         location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
@@ -32,8 +32,17 @@
 
     <build
         build-mode="FULL"
-        timestamp="1498403018067"
+        timestamp="1498409958816"
         verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\outputs\apk\app-debug.apk"
+            type="SPLIT_MAIN" />
         <artifact
             location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
@@ -56,24 +65,15 @@
             location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
-        <artifact
-            location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\outputs\apk\app-debug.apk"
-            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        timestamp="1498404490313"
+        timestamp="1498410447995"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\outputs\apk\app-debug.apk"
@@ -81,7 +81,7 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1498404586547"
+        timestamp="1498410654450"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\split-apk\debug\slices\slice_2.apk"

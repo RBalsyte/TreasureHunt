@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Jun 25 16:57:56 CEST 2017
+#Sun Jun 25 18:59:21 CEST 2017
 14.set=ANDROID_RESOURCE
 180.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\design_fab_background.xml
 118.set=ANDROID_RESOURCE
@@ -17,7 +17,7 @@
 134.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 186.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 161.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
-192.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\map.jpg
+192.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\activity_hint.xml
 132.set=ANDROID_RESOURCE
 179.set=ANDROID_RESOURCE
 59.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
@@ -73,7 +73,7 @@
 187.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 110.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 162.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
-193.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\color\\abc_primary_text_material_dark.xml
+193.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\map.jpg
 142.set=ANDROID_RESOURCE
 189.set=ANDROID_RESOURCE
 35.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
@@ -127,7 +127,7 @@
 111.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 163.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 106.set=ANDROID_RESOURCE
-194.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\abc_cab_background_top_material.xml
+194.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\color\\abc_primary_text_material_dark.xml
 190.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 152.set=ANDROID_RESOURCE
 199.set=ANDROID_RESOURCE
@@ -184,7 +184,7 @@
 164.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 116.set=ANDROID_RESOURCE
 0.set=ANDROID_RESOURCE
-195.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\notification_media_action.xml
+195.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\abc_cab_background_top_material.xml
 191.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 170.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\anim\\design_fab_in.xml
 162.set=ANDROID_RESOURCE
@@ -240,7 +240,7 @@
 165.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 126.set=ANDROID_RESOURCE
 140.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
-196.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\abc_activity_chooser_view_list_item.xml
+196.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\notification_media_action.xml
 171.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_gesture.xml
 38.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 133.set=ANDROID_RESOURCE
@@ -292,7 +292,7 @@
 166.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 136.set=ANDROID_RESOURCE
 141.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
-197.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\activity_gesture.xml
+197.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\abc_activity_chooser_view_list_item.xml
 120.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\design_navigation_item_header.xml
 172.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\abc_ic_clear_mtrl_alpha.png
 39.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
@@ -379,7 +379,7 @@ count=207
 81.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 135.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable\\abc_dialog_material_background_dark.xml
 84.set=ANDROID_RESOURCE
-187.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\color\\abc_background_cache_hint_selector_material_light.xml
+187.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v16\\activity_gesture.xml
 110.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\notification_template_media.xml
 162.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\select_dialog_multichoice_material.xml
 193.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
@@ -435,13 +435,13 @@ count=207
 136.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-v21\\abc_btn_colored_material.xml
 94.set=ANDROID_RESOURCE
 205.set=ANDROID_RESOURCE
-188.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\design_navigation_item.xml
+188.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\color\\abc_background_cache_hint_selector_material_light.xml
 111.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\abc_action_menu_item_layout.xml
 163.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\notification_template_lines.xml
 194.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 192.set=ANDROID_RESOURCE
 55.set=ANDROID_RESOURCE
-190.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-v21\\abc_action_bar_item_background_material.xml
+190.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png
 159.set=ANDROID_RESOURCE
 16.set=ANDROID_RESOURCE
 36.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\color\\abc_primary_text_material_light.xml
@@ -489,14 +489,14 @@ count=207
 83.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 62.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png
 137.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\notification_template_big_media.xml
-189.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png
+189.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\design_navigation_item.xml
 112.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-ldrtl-xxhdpi-v17\\abc_ic_menu_cut_mtrl_alpha.png
 19.set=ANDROID_RESOURCE
 164.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\abc_action_mode_close_item_material.xml
 195.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 170.base=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_
 65.set=ANDROID_RESOURCE
-191.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-v17\\activity_hint.xml
+191.file=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-v21\\abc_action_bar_item_background_material.xml
 7.set=ANDROID_RESOURCE
 169.set=ANDROID_RESOURCE
 26.set=ANDROID_RESOURCE
