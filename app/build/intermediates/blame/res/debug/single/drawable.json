@@ -126,5 +126,9 @@
     {
         "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\default_image.png",
+        "source": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\src\\main\\res\\drawable\\default_image.png"
     }
 ]

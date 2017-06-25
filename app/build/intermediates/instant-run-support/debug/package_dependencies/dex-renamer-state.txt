@@ -1,4 +1,4 @@
-#Sun Jun 25 16:57:58 CEST 2017
+#Sun Jun 25 20:43:36 CEST 2017
 file.2=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_42386c38f85ca5fd262928d8308886cee7cf065d\\classes.dex
 base.2=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_42386c38f85ca5fd262928d8308886cee7cf065d
 file.1=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_43e53a598e987f9892bdd3930d8ec98d7b611feb\\classes.dex

@@ -617,11 +617,12 @@ int drawable abc_textfield_search_default_mtrl_alpha 0x7f020049
 int drawable abc_textfield_search_material 0x7f02004a
 int drawable arrow 0x7f02004b
 int drawable compass 0x7f02004c
-int drawable design_fab_background 0x7f02004d
-int drawable design_snackbar_background 0x7f02004e
-int drawable map 0x7f02004f
-int drawable map2 0x7f020050
-int drawable notification_template_icon_bg 0x7f020051
+int drawable default_image 0x7f02004d
+int drawable design_fab_background 0x7f02004e
+int drawable design_snackbar_background 0x7f02004f
+int drawable map 0x7f020050
+int drawable map2 0x7f020051
+int drawable notification_template_icon_bg 0x7f020052
 int id action0 0x7f0c008d
 int id action_bar 0x7f0c0062
 int id action_bar_activity_content 0x7f0c0000

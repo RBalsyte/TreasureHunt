@@ -31,11 +31,11 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
 
     public enum Status{
-        VERY_FAR("You are very far away :("),
-        FAR("You are still far away :("),
-        CLOSE("You are 100 meters away from the goal!"),
-        ALMOST("You are almost there! Keep walking!"),
-        GOAL("You found it! You may now perform the gesture as instructed to proceed :)");
+        VERY_FAR("Very far"),
+        FAR("Far"),
+        CLOSE("Close"),
+        ALMOST("Almost there!"),
+        GOAL("You found it!");
 
         private String string;
         private Status(String string){
@@ -49,7 +49,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     private static final String TAG = "Compass";
-    private static final int REQUEST_PERFORM_GESTURE = 1;
+    private static final int REQUEST_PERFORM_GESTURE = 2;
 
     //TODO
     //private Hint hint = null;
@@ -240,9 +240,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     }
 
-
     private void start(){
-
 
         boolean isOn = isNetworkOn() && isGPSOn();
         if (isOn){
@@ -299,10 +297,10 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     private void startGesture(){
         //TODO switch activity
-        Intent intentLocation = new Intent(this, GestureActivity.class);
-        intentLocation.putExtra("treasure", treasure);
-        intentLocation.putExtra("currentHintPos", currentHintPos);
+        Intent intent = new Intent(this, GestureActivity.class);
+        intent.putExtra("treasure", treasure);
+        intent.putExtra("currentHintPos", currentHintPos);
 
-        startActivityForResult(intentLocation, REQUEST_PERFORM_GESTURE);
+        startActivityForResult(intent, REQUEST_PERFORM_GESTURE);
     }
 }

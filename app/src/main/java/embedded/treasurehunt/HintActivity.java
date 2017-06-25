@@ -38,7 +38,7 @@ import embedded.treasurehunt.model.Treasure;
 
 public class HintActivity extends AppCompatActivity {
 
-    private static final int REQUEST_NEW_HINT_POSITION = 0;
+    private static final int REQUEST_NEW_HINT_POSITION = 1;
 
     private ImageView image;
     private TextView instructions;
@@ -78,24 +78,25 @@ public class HintActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("onActivityResult", "returned from GestureActivity");
         if (requestCode == REQUEST_NEW_HINT_POSITION && resultCode == Activity.RESULT_OK) {
-            // pass the new current hint position to the hint activity
             int newHintPos = data.getIntExtra("newHintPos", 0);
-            if (newHintPos == (treasure.getHints().size() - 1)){
+            // finished the game? -> go back to main and finish this activity
+            if (newHintPos == treasure.getHints().size()){
                 HintActivity.this.setResult(Activity.RESULT_OK, new Intent().putExtra("finished", true));
                 HintActivity.this.finish();
             }
             else {
-                //TODO update variables
+                currentHintPos = newHintPos;
+                updateData();
             }
         }
         // else it paused and doesn't need update
     }
 
     private void showCompass(){
-        Intent intentLocation = new Intent(this, CompassActivity.class);
-        intentLocation.putExtra("treasure", treasure);
-        intentLocation.putExtra("currentHintPos", currentHintPos);
-        startActivityForResult(intentLocation, REQUEST_NEW_HINT_POSITION);
+        Intent intent = new Intent(this, CompassActivity.class);
+        intent.putExtra("treasure", treasure);
+        intent.putExtra("currentHintPos", currentHintPos);
+        startActivityForResult(intent, REQUEST_NEW_HINT_POSITION);
     }
 
     private void getTreasure(){
@@ -126,8 +127,12 @@ public class HintActivity extends AppCompatActivity {
                 currentHint = treasure.getHints().get(currentHintPos);
                 if(currentHint != null){
                     instructions.setText(currentHint.getInstructions());
-                    Bitmap bm = BitmapFactory.decodeByteArray(currentHint.getImage(), 0, currentHint.getImage().length);
-                    image.setImageBitmap(bm);
+                    if (currentHint.getImage() != null){
+                        Bitmap bm = BitmapFactory.decodeByteArray(currentHint.getImage(), 0, currentHint.getImage().length);
+                        image.setImageBitmap(bm);
+                    }else{
+                        image.setImageResource(R.drawable.default_image);
+                    }
                 }
             }
         });

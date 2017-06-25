@@ -1,6 +1,7 @@
 package embedded.treasurehunt;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private int selectedTreasure = -1;
 
+    private static final int REQUEST_GAME_FINISH = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-                final Button startButton = (Button)findViewById(R.id.startButton);
+        final Button startButton = (Button)findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(selectedTreasure < 0){
@@ -76,13 +79,22 @@ public class MainActivity extends AppCompatActivity {
                     1340);
             // TODO show error msg
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("onActivityResult", "returned from GestureActivity");
+        if (requestCode == REQUEST_GAME_FINISH && resultCode == Activity.RESULT_OK) {
+            boolean finished = data.getBooleanExtra("finished", false);
+            Log.d("onActivityResult", "Game finished");
+        }
+        // else it paused and doesn't need update
     }
 
     private void start(){
-        Intent intentMain = new Intent(this, HintActivity.class);
-        intentMain.putExtra("treasureId", selectedTreasure);
-        this.startActivity(intentMain);
+        Intent intent = new Intent(this, HintActivity.class);
+        intent.putExtra("treasureId", selectedTreasure);
+        startActivityForResult(intent, REQUEST_GAME_FINISH);
     }
 
     private void getTreasuresLists(){

@@ -52,12 +52,12 @@
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\9e5c0e23ab5da73e1147a651b8424f2227c22085\\output\\res\\layout\\design_menu_item_action_area.xml"
     },
     {
-        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
-        "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\layout\\abc_screen_content_include.xml"
-    },
-    {
         "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\layout\\abc_screen_content_include.xml"
     },
     {
         "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
