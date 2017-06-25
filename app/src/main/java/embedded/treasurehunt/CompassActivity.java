@@ -2,6 +2,7 @@ package embedded.treasurehunt;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,7 +11,6 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -51,7 +51,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     private TextView latTextView;
     private TextView longTextView;
-    private TextView degreesTextView;
     private TextView statusTextView;
     private Button gestureButton;
     private Button mapButton;
@@ -60,7 +59,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private LocationManager locationManager;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
-    private Sensor magneticSensor;
+    private Sensor magnetometerSensor;
+
     private float[] mGravity = new float[3];
     private float[] mGeomagnetic = new float[3];
     private float azimuth = 0f;
@@ -74,7 +74,6 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
         latTextView = (TextView) findViewById(R.id.latTextView);
         longTextView = (TextView) findViewById(R.id.longTextView);
-        degreesTextView = (TextView) findViewById(R.id.degreesTextView);
         statusTextView = (TextView) findViewById(R.id.statusTextView);
         mapButton = (Button) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +83,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             }
         });
         gestureButton = (Button) findViewById(R.id.gestureButton);
-        gestureButton.setEnabled(false);
+        gestureButton.setVisibility(View.INVISIBLE);
         gestureButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startGesture();
@@ -93,39 +92,26 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         });
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        magneticSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         arrowView = (ImageView) findViewById(R.id.compassArrow);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        start();
-        Log.d("onStart", "Compass Activity started");
-    }
-
-    @Override
     protected void onPause() {
-        super.onPause();
         stop();
         Log.d("onPause", "Compass Activity paused");
+        super.onPause();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         start();
         Log.d("onResume", "Compass Activity resumed");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stop();
-        Log.d("onPStop", "Compass Activity stopped");
+        super.onResume();
     }
 
     private void adjustArrow() {
@@ -197,19 +183,19 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         float distance = dist[0];
         if (distance < 2){
             statusTextView.setText(Status.GOAL.toString());
-            gestureButton.setEnabled(true);
+            gestureButton.setVisibility(View.VISIBLE);
         }else if (distance < 20){
             statusTextView.setText(Status.ALMOST.toString());
-            gestureButton.setEnabled(false);
+            gestureButton.setVisibility(View.INVISIBLE);
         }else if (distance < 100){
             statusTextView.setText(Status.CLOSE.toString());
-            gestureButton.setEnabled(false);
+            gestureButton.setVisibility(View.INVISIBLE);
         }else if (distance < 500){
             statusTextView.setText(Status.FAR.toString());
-            gestureButton.setEnabled(false);
+            gestureButton.setVisibility(View.INVISIBLE);
         }else {
             statusTextView.setText(Status.VERY_FAR.toString());
-            gestureButton.setEnabled(false);
+            gestureButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -230,8 +216,7 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
 
     private void start(){
-        sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_GAME);
-        sensorManager.registerListener(this, magneticSensor, SensorManager.SENSOR_DELAY_GAME);
+
 
         boolean isOn = isNetworkOn() && isGPSOn();
         if (isOn){
@@ -254,14 +239,16 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             // (minDistance -> minimum distance between location updates, in meters)
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, this);
-            Log.d("onStart", "Location listener added");
 
+            sensorManager.registerListener(CompassActivity.this, accelerometerSensor, SensorManager.SENSOR_DELAY_UI);
+            sensorManager.registerListener(CompassActivity.this, magnetometerSensor, SensorManager.SENSOR_DELAY_UI);
         }
     }
 
     private void stop(){
         locationManager.removeUpdates(this);
-        sensorManager.unregisterListener(this);
+        sensorManager.unregisterListener(this, accelerometerSensor);
+        sensorManager.unregisterListener(this, magnetometerSensor);
     }
 
     private Boolean isNetworkOn(){
@@ -283,12 +270,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     }
 
     private void startGesture(){
-        //TODO
-    }
-
-
-    private boolean doShakeGesture(){
-
-        return false;
+        //TODO switch activity
+        Intent intentLocation = new Intent(this, GestureActivity.class);
+        this.startActivity(intentLocation);
     }
 }

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:2:1-49:12
+ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:2:1-48:12
 	package
 		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:3:5-36
 		INJECTED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml
@@ -61,11 +61,11 @@ activity#embedded.treasurehunt.HintActivity
 ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:24:9-30:20
 	android:name
 		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:25:13-41
-activity#embedded.treasurehunt.NextHintActivity
+activity#embedded.treasurehunt.CompassActivity
 ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:32:9-38:20
 	android:name
-		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:33:13-45
-activity#embedded.treasurehunt.CompassActivity
+		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:33:13-44
+activity#embedded.treasurehunt.GestureActivity
 ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:40:9-46:20
 	android:name
 		ADDED from C:\Users\Schnecke\Desktop\TreasureHunt\app\src\main\AndroidManifest.xml:41:13-44

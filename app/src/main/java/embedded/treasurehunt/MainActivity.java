@@ -30,6 +30,5 @@ public class MainActivity extends AppCompatActivity {
     private void start(){
         Intent intentMain = new Intent(this, HintActivity.class);
         this.startActivity(intentMain);
-        Log.i("Layout changed to hint ","Main layout ");
     }
 }

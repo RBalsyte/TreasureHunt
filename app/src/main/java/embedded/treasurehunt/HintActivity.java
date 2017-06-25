@@ -50,6 +50,5 @@ public class HintActivity extends AppCompatActivity {
         //TODO switch activity
         Intent intentLocation = new Intent(this, CompassActivity.class);
         this.startActivity(intentLocation);
-        Log.d("Hint layout ", "Layout changed to compass.");
     }
 }

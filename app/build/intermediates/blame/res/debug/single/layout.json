@@ -116,10 +116,6 @@
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\layout\\abc_expanded_menu_layout.xml"
     },
     {
-        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_next_hint.xml",
-        "source": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\src\\main\\res\\layout\\content_next_hint.xml"
-    },
-    {
         "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\layout\\notification_media_cancel_action.xml"
     },
@@ -208,8 +204,8 @@
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
-        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_next_hint.xml",
-        "source": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\src\\main\\res\\layout\\activity_next_hint.xml"
+        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_gesture.xml",
+        "source": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\src\\main\\res\\layout\\activity_gesture.xml"
     },
     {
         "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",

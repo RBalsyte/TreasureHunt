@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +23,6 @@
         android:id="@+id/compassArrow"
         android:layout_width="20dp"
         android:layout_height="240dp"
-        android:fontFamily="serif-monospace"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@drawable/arrow" />

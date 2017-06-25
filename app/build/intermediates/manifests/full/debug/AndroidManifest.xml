@@ -32,14 +32,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="embedded.treasurehunt.NextHintActivity" >
+        <activity android:name="embedded.treasurehunt.CompassActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="embedded.treasurehunt.CompassActivity" >
+        <activity android:name="embedded.treasurehunt.GestureActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
