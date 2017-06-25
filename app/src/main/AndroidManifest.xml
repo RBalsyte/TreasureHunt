@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".NextHintActivity">
+            android:name=".GestureActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

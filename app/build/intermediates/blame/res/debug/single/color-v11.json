@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
+        "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
+        "source": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
         "merged": "D:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
         "source": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
     },
