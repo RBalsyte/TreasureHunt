@@ -41,7 +41,7 @@ public class HintActivity extends AppCompatActivity {
     private TextView instructions;
     private Treasure treasure;
     private Hint currentHint;
-    private int currentHintpos = 0;
+    private int currentHintPos = 0;
     private int selectedId = -1;
     private Gson customGson;
 
@@ -69,28 +69,13 @@ public class HintActivity extends AppCompatActivity {
                 Log.d("onCompassClick", "compass button clicked.");
             }
         });
-
-    }
-
-    private void setupHint(){
-        //TODO first remove previous image? or just replace somehow?
-        //instructions.setText(hint.getInstructions());
-        //if (hint.getImage() != null){
-        //    image = new ImageView(this);
-        //    image.setLayoutParams(new android.view.ViewGroup.LayoutParams(80,60));
-        //    image.setMaxHeight(20);
-        //    image.setMaxWidth(20);
-//
-//            // Adds the view to the layout
-//            layout.addView(image);
-//        }
     }
 
     private void showCompass(){
-        //TODO switch activity
         Intent intentLocation = new Intent(this, CompassActivity.class);
+        intentLocation.putExtra("treasure", treasure);
+        intentLocation.putExtra("currentHintPos", currentHintPos);
         this.startActivity(intentLocation);
-        Log.d("Hint layout ", "Layout changed to compass.");
     }
 
     private void getTreasure(){
@@ -118,7 +103,7 @@ public class HintActivity extends AppCompatActivity {
     private void updateData() {
         runOnUiThread(new Runnable() {
             public void run() {
-                currentHint = treasure.getHints().get(currentHintpos);
+                currentHint = treasure.getHints().get(currentHintPos);
                 if(currentHint != null){
                     instructions.setText(currentHint.getInstructions());
                     Bitmap bm = BitmapFactory.decodeByteArray(currentHint.getImage(), 0, currentHint.getImage().length);

@@ -14,14 +14,27 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/failedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="187dp"
+        android:text="TextView"
+        android:fontFamily="serif-monospace"
+        android:textColor="#280600"
+        android:textSize="18sp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="132dp"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="188dp"
-        android:text="TextView" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/tryAgainButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:background="#280600"
+        android:fontFamily="serif-monospace"
+        android:text="Try again"
+        android:textColor="#ffc15c"
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

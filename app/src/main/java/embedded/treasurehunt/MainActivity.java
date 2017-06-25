@@ -1,7 +1,11 @@
 package embedded.treasurehunt;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -62,13 +66,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        int finePermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarsePermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        // request if needed
+        if (finePermissionCheck != PackageManager.PERMISSION_GRANTED
+                || coarsePermissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1340);
+            // TODO show error msg
+        }
+
     }
 
     private void start(){
         Intent intentMain = new Intent(this, HintActivity.class);
         intentMain.putExtra("treasureId", selectedTreasure);
         this.startActivity(intentMain);
-        Log.i("Layout changed to hint ","Main layout ");
     }
 
     private void getTreasuresLists(){

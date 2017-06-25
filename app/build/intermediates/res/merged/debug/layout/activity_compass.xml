@@ -23,7 +23,6 @@
         android:id="@+id/compassArrow"
         android:layout_width="20dp"
         android:layout_height="240dp"
-        android:fontFamily="serif-monospace"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@drawable/arrow" />

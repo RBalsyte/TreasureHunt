@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0ecd49d4f3410f2180e3e1790b9e6f7699a98b07">
-        <dex dex="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_65e2b845fab1ab60cc60abcfc59629fc147e713e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_e8341ed97fd968d8c6bded6bc14672fae6bb1ab6\classes.dex" />
+        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_158da65c60dc1bdde48100e442144bdeacd49ed2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="107cde98ac706a1587eca9845dc022abe92acd93">
+        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7a027eac5a55a35d410f15a3c4b1f572c26d3e22\classes.dex" />
     </item>
 
 </items>

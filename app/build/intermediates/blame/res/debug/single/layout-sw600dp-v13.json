@@ -1,9 +1,5 @@
 [
     {
-        "merged": "D:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
-        "source": "C:\\Users\\Diana\\.android\\build-cache\\46e2fc38a14990e14c3640444aeb459a1353f668\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
-    },
-    {
         "merged": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
         "source": "C:\\Users\\Schnecke\\.android\\build-cache\\9e5c0e23ab5da73e1147a651b8424f2227c22085\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
     }

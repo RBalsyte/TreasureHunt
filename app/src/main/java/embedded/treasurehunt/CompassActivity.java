@@ -23,6 +23,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import embedded.treasurehunt.model.Hint;
+import embedded.treasurehunt.model.Treasure;
+
 public class CompassActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
 
@@ -66,11 +69,20 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private float azimuth = 0f;
     private float currectAzimuth = 0;
 
+    private Treasure treasure;
+    private int currentHintPos;
+    private Hint currentHint;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
+
+        Intent intent = getIntent();
+        treasure = (Treasure)intent.getSerializableExtra("treasure");
+        currentHintPos = intent.getIntExtra("currentHintPos", -1);
+        currentHint = treasure.getHints().get(currentHintPos);
 
         latTextView = (TextView) findViewById(R.id.latTextView);
         longTextView = (TextView) findViewById(R.id.longTextView);
@@ -229,10 +241,12 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             // check for permissions
             if (finePermissionCheck != PackageManager.PERMISSION_GRANTED
                     || coarsePermissionCheck != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                        1340);
-                // TODO show error msg
+                //ActivityCompat.requestPermissions(this,
+                  //      new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    //    1340);
+
+                //TODO
+                return;
             }
 
             // request location updates every second independent from distance (0)
@@ -272,6 +286,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
     private void startGesture(){
         //TODO switch activity
         Intent intentLocation = new Intent(this, GestureActivity.class);
+        intentLocation.putExtra("treasure", treasure);
+        intentLocation.putExtra("currentHintPos", currentHintPos);
         this.startActivity(intentLocation);
     }
 }
