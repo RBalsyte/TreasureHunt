@@ -1,4 +1,4 @@
-#Sat Jun 24 05:55:00 CEST 2017
-base.0=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_7
+#Sat Jun 24 22:03:11 CEST 2017
+base.0=D\:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_7
 renamed.0=classes.dex
-file.0=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_7\\classes.dex
+file.0=D\:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_7\\classes.dex

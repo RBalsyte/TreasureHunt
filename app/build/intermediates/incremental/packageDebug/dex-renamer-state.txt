@@ -1,7 +1,7 @@
-#Sat Jun 24 17:21:21 CEST 2017
-base.0=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_158da65c60dc1bdde48100e442144bdeacd49ed2
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_7a027eac5a55a35d410f15a3c4b1f572c26d3e22\\classes.dex
-base.1=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_7a027eac5a55a35d410f15a3c4b1f572c26d3e22
-file.0=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_158da65c60dc1bdde48100e442144bdeacd49ed2\\classes.dex
+#Sun Jun 25 15:50:39 CEST 2017
+base.0=D\:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_e8341ed97fd968d8c6bded6bc14672fae6bb1ab6
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=D\:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_65e2b845fab1ab60cc60abcfc59629fc147e713e\\classes.dex
+base.1=D\:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_65e2b845fab1ab60cc60abcfc59629fc147e713e
+file.0=D\:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_e8341ed97fd968d8c6bded6bc14672fae6bb1ab6\\classes.dex

@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w480dp-v13\\values-w480dp-v13.xml",
+        "outputFile": "D:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w480dp-v13\\values-w480dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 112
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-w480dp-v13\\values-w480dp-v13.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-w480dp-v13\\values-w480dp-v13.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 184
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-w480dp-v13\\values-w480dp-v13.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-w480dp-v13\\values-w480dp-v13.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,

@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+        "outputFile": "D:\\UNI\\Embedded\\TreasureHunt\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 112
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 184
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 254
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 318
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 389
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 457
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\80255a251b8cdd4cced82579c162932cc979224a\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\5c272d6ca2808db8f9cd7c05907e306c9cc20219\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -126,7 +126,7 @@
                     "endOffset": 639
                 },
                 "from": {
-                    "file": "C:\\Users\\Schnecke\\.android\\build-cache\\9e5c0e23ab5da73e1147a651b8424f2227c22085\\output\\res\\values-land\\values-land.xml",
+                    "file": "C:\\Users\\Diana\\.android\\build-cache\\46e2fc38a14990e14c3640444aeb459a1353f668\\output\\res\\values-land\\values-land.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

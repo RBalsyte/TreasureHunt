@@ -3,111 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Schnecke\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jar="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_23c07179f84e2eae91c9de63e5c4bd615fa07e66\classes.dex" />
+        sha1="0ecd49d4f3410f2180e3e1790b9e6f7699a98b07">
+        <dex dex="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_65e2b845fab1ab60cc60abcfc59629fc147e713e\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Schnecke\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_4594610d7e9ae47ddf1d832a2743b266762dd20f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_158da65c60dc1bdde48100e442144bdeacd49ed2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\be3f59d6510f2c420bd34e59cc47b25ddb4eb0d4\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fce1b72e1062e49fafb5d42604896ac702274df2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\aa261d9a84de7c6dde713a61c32510b9d774d87f\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_48800ad0c28aac1ea1fa50eff0882580d10f83f8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\25393f6a313cc863e5cbe4f479352a41498eb99f\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_216076711da95cc6cb580ad9fbfb22a6c892694b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\5d3f367b1fd92543a07f4393cf1cb603e0217337\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8a022b7b1ced69c3dae71f1c633b67a7ed339634\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\cd1c71e3c1b0933bfea85bfaab58bc793e2c3aa7\output\jars\libs\internal_impl-23.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_2e605dfc6513a4110552a9f05814dde9fbe15f87\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\9e5c0e23ab5da73e1147a651b8424f2227c22085\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_43e53a598e987f9892bdd3930d8ec98d7b611feb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\80255a251b8cdd4cced82579c162932cc979224a\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_509bc7eea2aa1f4c0114c415dbdeb34184b71698\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\.android\build-cache\cd1c71e3c1b0933bfea85bfaab58bc793e2c3aa7\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_42386c38f85ca5fd262928d8308886cee7cf065d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="002bc192ceb990619c50072853bd80f501c3dd7f">
-        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7a027eac5a55a35d410f15a3c4b1f572c26d3e22\classes.dex" />
+        <dex dex="D:\UNI\Embedded\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_e8341ed97fd968d8c6bded6bc14672fae6bb1ab6\classes.dex" />
     </item>
 
 </items>
