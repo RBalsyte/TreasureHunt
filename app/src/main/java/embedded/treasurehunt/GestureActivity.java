@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
@@ -34,6 +35,8 @@ public class GestureActivity extends AppCompatActivity{
     private final int ORIENTATION_LANDSCAPE = ExifInterface.ORIENTATION_NORMAL; // 1
     private final int ORIENTATION_PORTRAIT_REVERSE = ExifInterface.ORIENTATION_ROTATE_270; // 8
 
+    private final int SENSOR_SENSITIVITY = 4;
+
     private final String TAG = "GestureActivity";
 
     private final List<String> counterStrings = Arrays.asList("3", "2", "1", "GO!");
@@ -43,6 +46,7 @@ public class GestureActivity extends AppCompatActivity{
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private Sensor magnetometerSensor;
+    private Sensor proximitySensor;
 
     private TextView failedTextView;
     private Button tryAgainButton;
@@ -66,6 +70,8 @@ public class GestureActivity extends AppCompatActivity{
     private boolean isLastHint;
 
     private CustomAlertDialog errorDialog;
+
+    private long timeInMillis = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +108,7 @@ public class GestureActivity extends AppCompatActivity{
         }
 
         //TODO reenable
-        //gestureType = currentHint.getGestureType();
-        gestureType = GestureType.Rotate;
+        gestureType = currentHint.getGestureType();
 
         failedTextView = (TextView) findViewById(R.id.failedTextView);
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
@@ -124,6 +129,7 @@ public class GestureActivity extends AppCompatActivity{
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
         alertTextView = new TextView(this);
         counterAlertDialog = new CustomAlertDialog(this, alertTextView);
@@ -179,11 +185,10 @@ public class GestureActivity extends AppCompatActivity{
             new GestureTimer(new ShakeSensorEventListener(), accelerometerSensor, null).start();
         }
         else if (gestureType == GestureType.Rotate){
-            OrientationSensorListener listener = new OrientationSensorListener();
-            new GestureTimer(listener, accelerometerSensor, magnetometerSensor).start();
+            new GestureTimer(new OrientationSensorListener(), accelerometerSensor, magnetometerSensor).start();
         }
-        else if (gestureType == GestureType.Eight){
-           // TODO
+        else if (gestureType == GestureType.Clap){
+            new GestureTimer( new EightSensorListener(), proximitySensor, null).start();
         }
         return false;
     }
@@ -321,7 +326,6 @@ public class GestureActivity extends AppCompatActivity{
                     default:
                         break;
                 }
-
             }
 
             if (rotationCount == 4)
@@ -331,13 +335,65 @@ public class GestureActivity extends AppCompatActivity{
         }
     }
 
+    private class EightSensorListener implements SensorEventListener {
+        DescriptiveStatistics pitchAvg;
+        DescriptiveStatistics rollAvg;
+
+        float[] mGravity;
+        float[] mGeomagnetic;
+
+        public EightSensorListener() {
+            pitchAvg = new DescriptiveStatistics(5);
+            rollAvg = new DescriptiveStatistics(5);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+
+            if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+                if (event.values[0] >= -SENSOR_SENSITIVITY && event.values[0] <= SENSOR_SENSITIVITY) {
+                    success = true;
+                }
+            }
+
+//            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+//                mGravity = event.values;
+//            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+//                mGeomagnetic = event.values;
+//            if (mGravity != null && mGeomagnetic != null) {
+//                float R[] = new float[9];
+//                float I[] = new float[9];
+//                boolean success2 = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+//                if (success2) {
+//                    float orientationData[] = new float[3];
+//                    SensorManager.getOrientation(R, orientationData);
+//                    pitchAvg.addValue(Math.toDegrees(orientationData[1]));
+//                    rollAvg.addValue(Math.toDegrees(orientationData[2]));
+//
+//                    long t = System.currentTimeMillis();
+//                    long delta = t - timeInMillis;
+//                    double x = Math.cos(delta);
+//                    double y = Math.sin(2*delta)/2;
+//                    Log.d(TAG, "x=" + x + " ourX=" + (pitchAvg.getMean() + 29.0)/100);
+//                    Log.d(TAG, "y=" + y + " ourY=" + (rollAvg.getMean() - 2.0)/100);
+//
+//                }
+//            }
+        }
+    }
+
     private class GestureTimer extends CountDownTimer{
         SensorEventListener listener;
         Sensor sensor1;
         Sensor sensor2;
 
         GestureTimer(SensorEventListener listener, Sensor sensor1, Sensor sensor2){
-            super(5000, 1000);
+            super(4000, 1000);
             this.listener = listener;
             this.sensor1 = sensor1;
             this.sensor2 = sensor2;

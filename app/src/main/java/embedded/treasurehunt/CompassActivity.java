@@ -70,10 +70,10 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
     private static final long UPDATE_INTERVAL = 1500;  /* 1.5 secs */
     private static final long FASTEST_INTERVAL = 1000; /* 1 sec */
 
-
     private TextView latTextView;
     private TextView longTextView;
     private TextView statusTextView;
+    private TextView distanceTextView;
     private Button gestureButton;
     private ImageView arrowView;
 
@@ -113,6 +113,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
         latTextView = (TextView) findViewById(R.id.latTextView);
         longTextView = (TextView) findViewById(R.id.longTextView);
         statusTextView = (TextView) findViewById(R.id.statusTextView);
+        distanceTextView = (TextView) findViewById(R.id.distanceTextView);
         Button mapButton = (Button) findViewById(R.id.mapButton);
         gestureButton = (Button) findViewById(R.id.gestureButton);
         arrowView = (ImageView) findViewById(R.id.compassArrow);
@@ -253,6 +254,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
         // haversine = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2), where φ is latitude, λ is longitude
         // c = 2 ⋅ atan2( √a, √(1−a) )
         // d = R ⋅ c
+        Log.d(TAG, "currentLocation " + currentLocation.toString() + " goal lat=" + latitude2 + " goal long=" + longitude2);
         double a = Math.sin(latitudeDelta/2) * Math.sin(latitudeDelta/2)
                 + Math.cos(deg2rad(currentLocation.getLatitude())) * Math.cos(deg2rad(latitude2))
                 * Math.sin(longitudeDelta/2) * Math.sin(longitudeDelta/2);
@@ -353,12 +355,50 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
 
     @Override
     public void onLocationChanged(Location location) {
-        // New location has now been determined
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        updateLocation(location);
+        mCurrentLocation = location;
+        latTextView.setText(String.format( "%.3f", mCurrentLocation.getLatitude() ));
+        longTextView.setText(String.format( "%.3f", mCurrentLocation.getLongitude() ));
+        Log.d(TAG, "Latitude" + mCurrentLocation.getLatitude());
+        Log.d(TAG, "Longitude" + mCurrentLocation.getLongitude());
+
+        double distance = calculateDistance(mCurrentLocation, hint.getLatitude(), hint.getLongitude());
+        distanceTextView.setText(((int)distance) + "m");
+        Log.d(TAG, "distance=" + distance);
+        if (distance < 5){
+            statusTextView.setText(Status.GOAL.toString());
+
+            if (hint.getGestureType() == GestureType.None){
+                TextView finishView = new TextView(CompassActivity.this);
+                String textToDisplay;
+                String okButtonText;
+                if (currentHintPos == (treasure.getHints().size() - 1)){
+                    textToDisplay = getString(R.string.gameFinished);
+                    okButtonText = getString(R.string.ok);
+                }else{
+                    textToDisplay = getString(R.string.nextHint);
+                    okButtonText = getString(R.string.proceed);
+                }
+                finishView.setText(textToDisplay);
+                Log.d("onFinish", "succeeded");
+                new CustomAlertDialog(CompassActivity.this, finishView, okButtonText, new StartNewHintListener()).show();
+                return;
+            }
+
+            gestureButton.setVisibility(View.VISIBLE);
+            gestureButton.setText("Perform " + hint.getGestureType().toString());
+        }else if (distance < 10){
+            statusTextView.setText(Status.ALMOST.toString());
+            gestureButton.setVisibility(View.INVISIBLE);
+        }else if (distance < 100){
+            statusTextView.setText(Status.CLOSE.toString());
+            gestureButton.setVisibility(View.INVISIBLE);
+        }else if (distance < 500){
+            statusTextView.setText(Status.FAR.toString());
+            gestureButton.setVisibility(View.INVISIBLE);
+        }else {
+            statusTextView.setText(Status.VERY_FAR.toString());
+            gestureButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -415,51 +455,5 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
             mCurrentLocation = lastKnown;
         }
         startLocationUpdates();
-    }
-
-    private void updateLocation(Location newLocation){
-        mCurrentLocation = newLocation;
-        latTextView.setText(String.format( "%.2f", mCurrentLocation.getLatitude() ));
-        longTextView.setText(String.format( "%.2f", mCurrentLocation.getLongitude() ));
-        Log.d(TAG, "Latitude" + mCurrentLocation.getLatitude());
-        Log.d(TAG, "Longitude" + mCurrentLocation.getLongitude());
-
-        //TODO reenable
-        //double distance = calculateDistance(mCurrentLocation, hint.getLatitude(), hint.getLongitude());
-        double distance = 0;
-        if (distance < 2){
-            statusTextView.setText(Status.GOAL.toString());
-
-            if (hint.getGestureType() == GestureType.None){
-                TextView finishView = new TextView(CompassActivity.this);
-                String textToDisplay;
-                String okButtonText;
-                if (currentHintPos == (treasure.getHints().size() - 1)){
-                    textToDisplay = getString(R.string.gameFinished);
-                    okButtonText = getString(R.string.ok);
-                }else{
-                    textToDisplay = getString(R.string.nextHint);
-                    okButtonText = getString(R.string.proceed);
-                }
-                finishView.setText(textToDisplay);
-                Log.d("onFinish", "succeeded");
-                new CustomAlertDialog(CompassActivity.this, finishView, okButtonText, new StartNewHintListener()).show();
-                return;
-            }
-
-            gestureButton.setVisibility(View.VISIBLE);
-        }else if (distance < 20){
-            statusTextView.setText(Status.ALMOST.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
-        }else if (distance < 100){
-            statusTextView.setText(Status.CLOSE.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
-        }else if (distance < 500){
-            statusTextView.setText(Status.FAR.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
-        }else {
-            statusTextView.setText(Status.VERY_FAR.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
-        }
     }
 }

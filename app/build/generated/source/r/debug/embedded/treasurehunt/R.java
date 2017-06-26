@@ -2869,13 +2869,13 @@ containing a value of this type.
         public static final int dark=0x7f0c0046;
         public static final int decor_content_parent=0x7f0c0068;
         public static final int default_activity_button=0x7f0c0050;
-        public static final int degreesTextView=0x7f0c007d;
         public static final int design_bottom_sheet=0x7f0c008d;
         public static final int design_menu_item_action_area=0x7f0c0094;
         public static final int design_menu_item_action_area_stub=0x7f0c0093;
         public static final int design_menu_item_text=0x7f0c0092;
         public static final int design_navigation_view=0x7f0c0091;
         public static final int disableHome=0x7f0c0017;
+        public static final int distanceTextView=0x7f0c007d;
         public static final int edit_query=0x7f0c006c;
         public static final int end=0x7f0c0029;
         public static final int end_padder=0x7f0c00a1;

@@ -51,11 +51,10 @@
 
     <ImageView
         android:id="@+id/hintImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignBottom="@+id/instructionText"
         android:layout_alignTop="@+id/instructionText"
-        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         app:srcCompat="@drawable/default_image" />
 

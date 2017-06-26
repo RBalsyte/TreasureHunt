@@ -1,4 +1,4 @@
-#Mon Jun 26 18:31:25 CEST 2017
+#Mon Jun 26 21:41:50 CEST 2017
 base.0=C\:\\Users\\Schnecke\\Desktop\\TreasureHunt\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_158da65c60dc1bdde48100e442144bdeacd49ed2
 renamed.1=classes.dex
 renamed.0=classes2.dex

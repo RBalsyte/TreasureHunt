@@ -54,13 +54,12 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/degreesTextView"
+        android:id="@+id/distanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:fontFamily="serif-monospace"
-        android:text="0 N"
         android:textAlignment="center"
         android:textColor="#280600"
         android:textSize="36sp"
