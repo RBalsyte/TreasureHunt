@@ -6,7 +6,7 @@
         jar="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.2"
+        revision="26.0.0"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_158da65c60dc1bdde48100e442144bdeacd49ed2\classes.dex" />
     </item>
@@ -15,9 +15,18 @@
         jar="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
-        revision="25.0.2"
-        sha1="754efccbd68d20636cbee32e31ffaa4bc9c0b0e6">
+        revision="26.0.0"
+        sha1="1779caea3704e9987020943abfc5a6751e3e559b">
         <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7a027eac5a55a35d410f15a3c4b1f572c26d3e22\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Schnecke\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-math3\3.0\5f8d1d720333aa9a7dee1c949ea70d9ed7da6106\commons-math3-3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="5f8d1d720333aa9a7dee1c949ea70d9ed7da6106">
+        <dex dex="C:\Users\Schnecke\Desktop\TreasureHunt\app\build\intermediates\transforms\dex\debug\folders\1000\10\commons-math3-3.0_5af05ea6ded3f92e7fae3c0914970703dcec21a3\classes.dex" />
     </item>
 
 </items>

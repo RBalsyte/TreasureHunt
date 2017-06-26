@@ -36,7 +36,7 @@
         android:layout_alignStart="@+id/compass"
         android:fontFamily="serif-monospace"
         android:text="Lat:"
-        android:textColor="#280600"
+        android:textColor="@color/colorAppDark"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -49,7 +49,7 @@
         android:layout_toRightOf="@+id/compassArrow"
         android:fontFamily="serif-monospace"
         android:text="Long:"
-        android:textColor="#280600"
+        android:textColor="@color/colorAppDark"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
         android:layout_toRightOf="@+id/latitudeTextView"
         android:fontFamily="serif-monospace"
         android:text="0"
-        android:textColor="#280600"
+        android:textColor="@color/colorAppDark"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="serif-monospace"
         android:text="0"
-        android:textColor="#280600"
+        android:textColor="@color/colorAppDark"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_alignBaseline="@+id/longitudeTextView"
@@ -104,7 +104,7 @@
         android:fontFamily="serif-monospace"
         android:text="Very Far"
         android:textAlignment="center"
-        android:textColor="#280600"
+        android:textColor="@color/colorAppDark"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -114,11 +114,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#280600"
+        android:background="@color/colorAppDark"
         android:fontFamily="serif-monospace"
         android:text="PERFORM GESTURE"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="#ffc15c"
+        android:textColor="@color/colorAppLight"
         android:textSize="18sp" />
 
     <Button
@@ -128,10 +128,10 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/longitudeTextView"
         android:layout_toRightOf="@+id/longitudeTextView"
-        android:background="#280600"
+        android:background="@color/colorAppDark"
         android:fontFamily="serif-monospace"
         android:text="Map"
-        android:textColor="#ffc15c"
+        android:textColor="@color/colorAppLight"
         android:textSize="18sp" />
 
 </RelativeLayout>

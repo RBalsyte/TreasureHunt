@@ -1,6 +1,7 @@
 package embedded.treasurehunt;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,11 +28,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.Base64;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import embedded.treasurehunt.model.Hint;
@@ -39,14 +39,20 @@ import embedded.treasurehunt.model.Treasure;
 public class HintActivity extends AppCompatActivity {
 
     private static final int REQUEST_NEW_HINT_POSITION = 1;
+    private static final String TAG = "HintActivity";
 
     private ImageView image;
     private TextView instructions;
+
     private Treasure treasure;
     private Hint currentHint;
     private int currentHintPos = 0;
-    private int selectedId = -1;
+    private int treasureId = -1;
+
     private Gson customGson;
+
+    private boolean doneRetrieving = false;
+    private CustomAlertDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,44 +61,74 @@ public class HintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hint);
 
         Intent intent = getIntent();
-        selectedId = intent.getIntExtra("treasureId", -1);
+        treasureId = intent.getIntExtra("treasureId", -1);
+
+        errorDialog = new CustomAlertDialog(HintActivity.this,
+                "Something went wrong with the game. Try to start a new game.",
+                getString(R.string.ok), new HintActivity.CloseAppListener());
+
+        if(treasureId < 0){
+            Log.e(TAG, "Invalid game id passed on from main.");
+            errorDialog.show();
+            return;
+        }
+
+        instructions = (TextView) findViewById((R.id.instructionText));
+        image = (ImageView) findViewById((R.id.hintImage));
+        final Button compassButton = (Button)findViewById(R.id.compassButton);
+
+        if (instructions == null || image == null || compassButton == null){
+            Log.d(TAG, "One of the ui elements is null");
+            errorDialog.show();
+            return;
+        }
+
+        compassButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showCompass();
+            }
+        });
 
         customGson = new GsonBuilder().registerTypeHierarchyAdapter(byte[].class,
                 new ByteArrayToBase64TypeAdapter()).create();
 
         getTreasure();
-
-        instructions = (TextView) findViewById((R.id.instructionText));
-        image = (ImageView) findViewById((R.id.hintImage));
-
-        final Button compassButton = (Button)findViewById(R.id.compassButton);
-        compassButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showCompass();
-                Log.d("onCompassClick", "compass button clicked.");
-            }
-        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("onActivityResult", "returned from GestureActivity");
+        Log.d(TAG, "Returned from Compass activity");
         if (requestCode == REQUEST_NEW_HINT_POSITION && resultCode == Activity.RESULT_OK) {
             int newHintPos = data.getIntExtra("newHintPos", 0);
             // finished the game? -> go back to main and finish this activity
             if (newHintPos == treasure.getHints().size()){
+                Log.d(TAG, "Game finished. Closing");
                 HintActivity.this.setResult(Activity.RESULT_OK, new Intent().putExtra("finished", true));
                 HintActivity.this.finish();
             }
             else {
+                Log.d(TAG, "Advancing to hint " + newHintPos);
                 currentHintPos = newHintPos;
+                doneRetrieving = false;
                 updateData();
             }
         }
-        // else it paused and doesn't need update
+        // else compass activity was paused and this one doesn't need update
     }
 
     private void showCompass(){
+        if (!doneRetrieving){
+            Toast toast = Toast.makeText(HintActivity.this, "Still retrieving data from the database. Please try again in a bit.", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        if (currentHint == null){
+            errorDialog.show();
+            return;
+        }
+
+        Log.d(TAG, "Starting Compass Activity");
         Intent intent = new Intent(this, CompassActivity.class);
         intent.putExtra("treasure", treasure);
         intent.putExtra("currentHintPos", currentHintPos);
@@ -100,51 +136,56 @@ public class HintActivity extends AppCompatActivity {
     }
 
     private void getTreasure(){
-        if(selectedId < 0){
-            // show toast error
-            Log.e("STATUS", "Invalid selected id");
-            return;
-        }
-
+        doneRetrieving = false;
         AsyncHttpClient client = new AsyncHttpClient();
         JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Type listType = new TypeToken<Treasure>(){}.getType();
                 treasure = customGson.fromJson(response.toString(), listType);
-                Log.d("STATUS", "Got treasure"+treasure.toString());
+                Log.d(TAG, "Got treasure " + treasure.toString());
                 updateData();
             }
         };
         responseHandler.setUsePoolThread(true);
 
-        client.get("http://192.168.0.102:8151/treasures/" + selectedId, null, responseHandler);
+        client.get("http://140.78.187.215:8151/treasures/" + treasureId, null, responseHandler);
     }
 
     private void updateData() {
         runOnUiThread(new Runnable() {
             public void run() {
                 currentHint = treasure.getHints().get(currentHintPos);
-                if(currentHint != null){
-                    instructions.setText(currentHint.getInstructions());
-                    if (currentHint.getImage() != null){
-                        Bitmap bm = BitmapFactory.decodeByteArray(currentHint.getImage(), 0, currentHint.getImage().length);
-                        image.setImageBitmap(bm);
-                    }else{
-                        image.setImageResource(R.drawable.default_image);
-                    }
+                if (currentHint == null){
+                    return;
                 }
+                instructions.setText(currentHint.getInstructions());
+                if (currentHint.getImage() != null){
+                    Bitmap bm = BitmapFactory.decodeByteArray(currentHint.getImage(), 0, currentHint.getImage().length);
+                    image.setImageBitmap(bm);
+                }else{
+                    image.setImageResource(R.drawable.default_image);
+                }
+                doneRetrieving = true;
             }
         });
     }
 
-    class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
+    private class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
         public byte[] deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             return Base64.decode(json.getAsString(), Base64.NO_WRAP);
         }
 
         public JsonElement serialize(byte[] src, Type typeOfSrc, JsonSerializationContext context) {
             return new JsonPrimitive(Base64.encodeToString(src, Base64.NO_WRAP));
+        }
+    }
+
+    private class CloseAppListener implements DialogInterface.OnClickListener{
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            HintActivity.this.finish();
         }
     }
 }

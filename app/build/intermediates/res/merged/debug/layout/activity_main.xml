@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/compass_horizontal_margin"
+    android:paddingRight="@dimen/compass_horizontal_margin"
+    android:paddingTop="@dimen/compass_vertical_margin"
+    android:paddingBottom="@dimen/compass_vertical_margin"
     android:background="@drawable/map"
-    tools:context="embedded.treasurehunt.MainActivity">
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="222dp"
         android:layout_height="109dp"
         android:fontFamily="serif-monospace"
-        android:text="Treasure\nHunt"
+        android:text="@string/mainActivityTitle"
         android:textAlignment="center"
-        android:textColor="#280600"
+        android:textColor="@color/colorAppDark"
         android:textSize="40sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/startButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.984" />
+        android:text="@string/start"
+        android:background="@color/colorAppDark"
+        android:fontFamily="serif-monospace"
+        android:textColor="@color/colorAppLight"
+        android:textSize="24sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
 
     <ListView
         android:id="@+id/treasuresList"
-        android:layout_width="368dp"
+        android:layout_width="340dp"
         android:layout_height="334dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerInParent="true"
         android:choiceMode="singleChoice"
-        android:listSelector="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="8dp" />
-</android.support.constraint.ConstraintLayout>
+        android:listSelector="@android:color/black" />
+</RelativeLayout>

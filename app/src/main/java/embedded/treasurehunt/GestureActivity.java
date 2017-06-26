@@ -1,11 +1,10 @@
 package embedded.treasurehunt;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.gesture.Gesture;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,15 +12,13 @@ import android.hardware.SensorManager;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,14 +34,15 @@ public class GestureActivity extends AppCompatActivity{
     private final int ORIENTATION_LANDSCAPE = ExifInterface.ORIENTATION_NORMAL; // 1
     private final int ORIENTATION_PORTRAIT_REVERSE = ExifInterface.ORIENTATION_ROTATE_270; // 8
 
-    private static final int FROM_RADS_TO_DEGS = -57;
+    private final String TAG = "GestureActivity";
+
     private final List<String> counterStrings = Arrays.asList("3", "2", "1", "GO!");
     private int count = 0;
-    private AlertDialog counterAlertDialog;
+    private CustomAlertDialog counterAlertDialog;
     private TextView alertTextView;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
-	private Sensor rotationSensor;
+    private Sensor magnetometerSensor;
 
     private TextView failedTextView;
     private Button tryAgainButton;
@@ -56,7 +54,9 @@ public class GestureActivity extends AppCompatActivity{
 
     private static final int SHAKE_THRESHOLD = 1000;
     private boolean success = false;
-	private int orientationValue = ORIENTATION_PORTRAIT;
+    private int orientationValue = ORIENTATION_PORTRAIT;
+    private int nextOrientation = ORIENTATION_LANDSCAPE_REVERSE;
+    int rotationCount = 0;
 
     Treasure treasure;
     private int currentHintPos;
@@ -65,27 +65,54 @@ public class GestureActivity extends AppCompatActivity{
 
     private boolean isLastHint;
 
+    private CustomAlertDialog errorDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture);
 
+        errorDialog = new CustomAlertDialog(GestureActivity.this,
+                "Something went wrong with the game. Try to start a new game.",
+                getString(R.string.ok), new CloseAppListener());
+
         Intent intent = getIntent();
         treasure = (Treasure)intent.getSerializableExtra("treasure");
         currentHintPos = intent.getIntExtra("currentHintPos", -1);
         currentHint = treasure.getHints().get(currentHintPos);
-        //gestureType = currentHint.getGestureType();
-        gestureType = GestureType.Shake;
+
+        if (treasure == null){
+            Log.d(TAG, "Treasure is null");
+            errorDialog.show();
+            return;
+        }
+        if (currentHintPos < 0 || currentHintPos >=treasure.getHints().size()){
+            Log.d(TAG, "Invalid currentHintPos");
+            errorDialog.show();
+            return;
+        }
         isLastHint = currentHintPos == (treasure.getHints().size() - 1);
 
-        sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        currentHint = treasure.getHints().get(currentHintPos);
+        if (currentHint == null){
+            Log.d(TAG, "Hint is null");
+            errorDialog.show();
+            return;
+        }
+
+        //TODO reenable
+        //gestureType = currentHint.getGestureType();
+        gestureType = GestureType.Rotate;
 
         failedTextView = (TextView) findViewById(R.id.failedTextView);
-        failedTextView.setVisibility(View.INVISIBLE);
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
+        if (failedTextView == null || tryAgainButton == null){
+            errorDialog.show();
+            return;
+        }
+
+        failedTextView.setVisibility(View.INVISIBLE);
         tryAgainButton.setVisibility(View.INVISIBLE);
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -94,21 +121,25 @@ public class GestureActivity extends AppCompatActivity{
             }
         });
 
+        sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
+        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
         alertTextView = new TextView(this);
-        counterAlertDialog = makeAlertDialog(alertTextView, false, null, null);
+        counterAlertDialog = new CustomAlertDialog(this, alertTextView);
     }
 
     @Override
     protected void onPause() {
+        Log.d(TAG, "Gesture Activity paused");
         stop();
-        Log.d("onPause", "Gesture Activity paused");
         super.onPause();
     }
 
     @Override
     protected void onResume() {
+        Log.d(TAG, "Gesture Activity resumed");
         start();
-        Log.d("onResume", "Gesture Activity resumed");
         super.onResume();
     }
 
@@ -119,14 +150,12 @@ public class GestureActivity extends AppCompatActivity{
         new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Log.d("onTick", counterStrings.get(count));
                 alertTextView.setText(counterStrings.get(count));
                 count++;
             }
 
             @Override
             public void onFinish() {
-                Log.d("onFinish", "finished.");
                 counterAlertDialog.hide();
                 startGestureTracking();
             }
@@ -143,46 +172,32 @@ public class GestureActivity extends AppCompatActivity{
 
     private boolean startGestureTracking(){
         if(gestureType == GestureType.None){
+            //TODO this should never happen
             return true;
         }
         else if (gestureType == GestureType.Shake){
-            new GestureTimer(new ShakeSensorEventListener(), accelerometerSensor).start();
+            new GestureTimer(new ShakeSensorEventListener(), accelerometerSensor, null).start();
         }
         else if (gestureType == GestureType.Rotate){
-            new GestureTimer(new OrientationSensorListener(), rotationSensor).start();
+            OrientationSensorListener listener = new OrientationSensorListener();
+            new GestureTimer(listener, accelerometerSensor, magnetometerSensor).start();
         }
         else if (gestureType == GestureType.Eight){
-            return infinity();
+           // TODO
         }
         return false;
     }
 
-    private boolean rotate(){
-        return false;
+    private void registerListener(SensorEventListener listener, Sensor sensor1, Sensor sensor2){
+        sensorManager.registerListener(listener, sensor1, SensorManager.SENSOR_DELAY_UI);
+		if(sensor2 != null)
+            sensorManager.registerListener(listener, sensor2, SensorManager.SENSOR_DELAY_UI);
     }
 
-    private boolean infinity(){
-        return false;
-    }
-
-    private void registerListener(SensorEventListener listener, Sensor sensor){
-        int finePermissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        int coarsePermissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION);
-        Log.d("FinePermission", finePermissionCheck + "");
-        Log.d("CoarsePermission", finePermissionCheck + "");
-        // check for permissions
-        if (finePermissionCheck != PackageManager.PERMISSION_GRANTED
-                || coarsePermissionCheck != PackageManager.PERMISSION_GRANTED) {
-            //TODO
-            return;
-        }
-        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_UI);
-    }
-
-    private void unregisterListener(SensorEventListener listener, Sensor sensor){
-        sensorManager.unregisterListener(listener, sensor);
+    private void unregisterListener(SensorEventListener listener, Sensor sensor1, Sensor sensor2){
+        sensorManager.unregisterListener(listener, sensor1);
+		if(sensor2 != null)
+            sensorManager.unregisterListener(listener, sensor2);
     }
 
     private class ShakeSensorEventListener implements SensorEventListener{
@@ -203,7 +218,7 @@ public class GestureActivity extends AppCompatActivity{
                     float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
 
                     if (speed > SHAKE_THRESHOLD) {
-                        Log.d("sensor", "shake detected w/ speed: " + speed);
+                        Log.d(TAG, "Shake detected w/ speed: " + speed);
                         success = true;
                     }
                     last_x = x;
@@ -214,12 +229,21 @@ public class GestureActivity extends AppCompatActivity{
         }
 
         @Override
-        public void onAccuracyChanged(Sensor sensor, int i) {
-
-        }
+        public void onAccuracyChanged(Sensor sensor, int i) {}
     }
 
-    private class OrientationSensorListener implements SensorEventListener{
+    private class OrientationSensorListener implements SensorEventListener {
+        DescriptiveStatistics pitchAvg;
+        DescriptiveStatistics rollAvg;
+
+        float[] mGravity;
+        float[] mGeomagnetic;
+
+        public OrientationSensorListener() {
+            pitchAvg = new DescriptiveStatistics(5);
+            rollAvg = new DescriptiveStatistics(5);
+        }
+
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
             // TODO Auto-generated method stub
@@ -227,72 +251,98 @@ public class GestureActivity extends AppCompatActivity{
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            if (event.sensor == rotationSensor) {
-                if (event.values.length > 4) {
-                    float[] truncatedRotationVector = new float[4];
-                    System.arraycopy(event.values, 0, truncatedRotationVector, 0, 4);
-                    update(truncatedRotationVector);
-                } else {
-                    update(event.values);
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+                mGravity = event.values;
+            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+                mGeomagnetic = event.values;
+            if (mGravity != null && mGeomagnetic != null) {
+                float R[] = new float[9];
+                float I[] = new float[9];
+                boolean success2 = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+                if (success2) {
+                    float orientationData[] = new float[3];
+                    SensorManager.getOrientation(R, orientationData);
+                    pitchAvg.addValue(Math.toDegrees(orientationData[1]));
+                    rollAvg.addValue(Math.toDegrees(orientationData[2]));
+                    update();
                 }
             }
         }
 
-        private void update(float[] vectors) {
-            float[] rotationMatrix = new float[9];
-            SensorManager.getRotationMatrixFromVector(rotationMatrix, vectors);
-
-            int worldAxisX = SensorManager.AXIS_X;
-            int worldAxisZ = SensorManager.AXIS_Z;
-            float[] adjustedRotationMatrix = new float[9];
-            SensorManager.remapCoordinateSystem(rotationMatrix, worldAxisX, worldAxisZ, adjustedRotationMatrix);
-
-            float[] orientation = new float[3];
-            SensorManager.getOrientation(adjustedRotationMatrix, orientation);
-
-            float pitch = (float) Math.toDegrees(orientation[1]);
-            float roll = (float) Math.toDegrees(orientation[2]);
-            double yaw = (float) Math.toDegrees(orientation[0]);
-
+        private void update() {
             if (((orientationValue == ORIENTATION_PORTRAIT || orientationValue == ORIENTATION_PORTRAIT_REVERSE)
-                    && (roll > -30 && roll < 30))) {
-                if (pitch > 0)
-                    Log.d("sensor", "Orientation: " +  ORIENTATION_PORTRAIT_REVERSE);
-                else
-                    Log.d("sensor", "Orientation: " +  ORIENTATION_PORTRAIT);
+                    && (rollAvg.getMean() > -30 && rollAvg.getMean() < 30))) {
+                if (pitchAvg.getMean() > 0) {
+                    orientationValue = ORIENTATION_PORTRAIT_REVERSE;
+                    Log.d("sensor", "Orientation: " + ORIENTATION_PORTRAIT_REVERSE);
+                } else {
+                    orientationValue = ORIENTATION_PORTRAIT;
+                    Log.d("sensor", "Orientation: " + ORIENTATION_PORTRAIT);
+                }
             } else {
                 // divides between all orientations
-                if (Math.abs(pitch) >= 30) {
-                    if (pitch > 0)
-                        Log.d("sensor", "Orientation: " +  ORIENTATION_PORTRAIT_REVERSE);
-                    else
-                        Log.d("sensor", "Orientation: " +  ORIENTATION_PORTRAIT);
-                } else {
-                    if (roll > 0) {
-                        Log.d("sensor", "Orientation: " +  ORIENTATION_LANDSCAPE_REVERSE);
+                if (Math.abs(pitchAvg.getMean()) >= 30) {
+                    if (pitchAvg.getMean() > 0) {
+                        orientationValue = ORIENTATION_PORTRAIT_REVERSE;
+                        Log.d("sensor", "Orientation: " + ORIENTATION_PORTRAIT_REVERSE);
                     } else {
-                        Log.d("sensor", "Orientation: " +  ORIENTATION_LANDSCAPE);
+                        orientationValue = ORIENTATION_PORTRAIT;
+                        Log.d("sensor", "Orientation: " + ORIENTATION_PORTRAIT);
+                    }
+                } else {
+                    if (rollAvg.getMean() > 0) {
+                        orientationValue = ORIENTATION_LANDSCAPE_REVERSE;
+                        Log.d("sensor", "Orientation: " + ORIENTATION_LANDSCAPE_REVERSE);
+                    } else {
+                        orientationValue = ORIENTATION_LANDSCAPE;
+                        Log.d("sensor", "Orientation: " + ORIENTATION_LANDSCAPE);
                     }
                 }
             }
 
-            //Log.d("sensor", "Orientation pitch: " + pitch);
-            Log.d("sensor", "Orientation roll: " + roll);
-            //Log.d("sensor", "Orientation yaw: " + yaw);
+            if (orientationValue == nextOrientation) {
+                switch (orientationValue) {
+                    case ORIENTATION_PORTRAIT:
+                        nextOrientation = ORIENTATION_LANDSCAPE_REVERSE;
+                        rotationCount++;
+                        break;
+                    case ORIENTATION_PORTRAIT_REVERSE:
+                        nextOrientation = ORIENTATION_LANDSCAPE;
+                        rotationCount++;
+                        break;
+                    case ORIENTATION_LANDSCAPE_REVERSE:
+                        nextOrientation = ORIENTATION_PORTRAIT_REVERSE;
+                        rotationCount++;
+                        break;
+                    case ORIENTATION_LANDSCAPE:
+                        nextOrientation = ORIENTATION_PORTRAIT;
+                        rotationCount++;
+                        break;
+                    default:
+                        break;
+                }
 
+            }
+
+            if (rotationCount == 4)
+                success = true;
+
+            Log.d(TAG, "Rotation count: " + rotationCount);
         }
     }
 
     private class GestureTimer extends CountDownTimer{
         SensorEventListener listener;
-        Sensor sensor;
+        Sensor sensor1;
+        Sensor sensor2;
 
-        GestureTimer(SensorEventListener listener, Sensor sensor){
+        GestureTimer(SensorEventListener listener, Sensor sensor1, Sensor sensor2){
             super(5000, 1000);
             this.listener = listener;
-            this.sensor = sensor;
+            this.sensor1 = sensor1;
+            this.sensor2 = sensor2;
             success = false;
-            registerListener(listener, sensor);
+            registerListener(listener, sensor1, sensor2);
         }
         @Override
         public void onTick(long millisUntilFinished) {}
@@ -301,7 +351,7 @@ public class GestureActivity extends AppCompatActivity{
         public void onFinish() {
 
             if (!success){
-                Log.d("onFinish", "failed");
+                Log.d(TAG, "User failed to do the gesture");
                 failedTextView.setText("You failed to do the correct gesture.");
                 failedTextView.setVisibility(View.VISIBLE);
                 tryAgainButton.setVisibility(View.VISIBLE);
@@ -309,8 +359,6 @@ public class GestureActivity extends AppCompatActivity{
                 TextView finishView = new TextView(GestureActivity.this);
                 String textToDisplay;
                 String okButtonText;
-                Log.d("CurrentHintPos", "" + currentHintPos);
-                Log.d("IsLastHint", "" + isLastHint);
                 if (isLastHint){
                     textToDisplay = "Congratulations, you have finished the game!";
                     okButtonText = "OK";
@@ -319,28 +367,11 @@ public class GestureActivity extends AppCompatActivity{
                     okButtonText = "Proceed";
                 }
                 finishView.setText(textToDisplay);
-                makeAlertDialog(finishView, true, okButtonText, new StartNewHintListener()).show();
-                Log.d("onFinish", "succeeded");
+                Log.d(TAG, "User succeeded to finish the gesture");
+                new CustomAlertDialog(GestureActivity.this, finishView, okButtonText, new StartNewHintListener()).show();
             }
-            unregisterListener(listener, sensor);
+            unregisterListener(listener, sensor1, sensor2);
         }
-    }
-
-    private AlertDialog makeAlertDialog(TextView view, boolean addOKButton, String okButtonText, DialogInterface.OnClickListener okButtonListener){
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-
-        view.setGravity(Gravity.CENTER);
-        view.setTextSize(32);
-        adb.setView(view);
-
-        if (addOKButton){
-            adb.setIcon(android.R.drawable.ic_dialog_alert);
-            adb.setPositiveButton(okButtonText, okButtonListener);
-        }
-
-        AlertDialog alertDialog = adb.create();
-        alertDialog.setCancelable(false);
-        return alertDialog;
     }
 
     private class StartNewHintListener implements DialogInterface.OnClickListener{
@@ -351,6 +382,19 @@ public class GestureActivity extends AppCompatActivity{
             currentHintPos++;
             GestureActivity.this.setResult(Activity.RESULT_OK, new Intent().putExtra("newHintPos", currentHintPos));
             GestureActivity.this.finish();
+        }
+    }
+
+    private class CloseAppListener implements DialogInterface.OnClickListener{
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            Log.d(TAG, "Error in the app. Closing all activities up to main to prepare for the new game.");
+
+            // finish all activities except Main
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 }

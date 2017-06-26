@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Treasure Hunt</string>
+    <string name="start">Start</string>
+    <string name="mainActivityTitle">Treasure\nHunt</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="gameFinished">Congratulations, you have finished the game!</string>
+    <string name="nextHint">Great, you have finished this task.</string>
+    <string name="proceed">Proceed</string>
 </resources>

@@ -20,7 +20,7 @@
         android:layout_marginTop="187dp"
         android:text="TextView"
         android:fontFamily="serif-monospace"
-        android:textColor="#280600"
+        android:background="@color/colorAppDark"
         android:textSize="18sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -30,10 +30,10 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="92dp"
-        android:background="#280600"
+        android:background="@color/colorAppDark"
         android:fontFamily="serif-monospace"
         android:text="Try again"
-        android:textColor="#ffc15c"
+        android:textColor="@color/colorAppLight"
         android:textSize="18sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
