@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.gesture.Gesture;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
@@ -35,43 +33,39 @@ public class GestureActivity extends AppCompatActivity{
     private final int ORIENTATION_LANDSCAPE = ExifInterface.ORIENTATION_NORMAL; // 1
     private final int ORIENTATION_PORTRAIT_REVERSE = ExifInterface.ORIENTATION_ROTATE_270; // 8
 
-    private final int SENSOR_SENSITIVITY = 4;
-
     private final String TAG = "GestureActivity";
 
+    // ui
+    private TextView alertTextView;
+    private TextView failedTextView;
+    private Button tryAgainButton;
+    private CustomAlertDialog counterAlertDialog;
     private final List<String> counterStrings = Arrays.asList("3", "2", "1", "GO!");
     private int count = 0;
-    private CustomAlertDialog counterAlertDialog;
-    private TextView alertTextView;
+
+    // model objects and variables
+    Treasure treasure;
+    private int currentHintPos;
+    private GestureType gestureType;
+    private boolean isLastHint;
+
+    // sensors
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
     private Sensor magnetometerSensor;
     private Sensor proximitySensor;
 
-    private TextView failedTextView;
-    private Button tryAgainButton;
-
-    private long lastUpdate;
-    private float x,y,z;
-    private float last_x,last_y,last_z;
-    private float[] values = new float[3];
-
-    private static final int SHAKE_THRESHOLD = 1000;
     private boolean success = false;
+
+    // shake variables
+    private long lastUpdate;
+    private float last_x,last_y,last_z;
+    private static final int SHAKE_THRESHOLD = 1000;
+
+    // rotation variables
     private int orientationValue = ORIENTATION_PORTRAIT;
     private int nextOrientation = ORIENTATION_LANDSCAPE_REVERSE;
     int rotationCount = 0;
-
-    Treasure treasure;
-    private int currentHintPos;
-    private Hint currentHint;
-    private GestureType gestureType;
-
-    private boolean isLastHint;
-
-    private CustomAlertDialog errorDialog;
-
-    private long timeInMillis = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +73,13 @@ public class GestureActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture);
 
-        errorDialog = new CustomAlertDialog(GestureActivity.this,
+        CustomAlertDialog errorDialog = new CustomAlertDialog(GestureActivity.this,
                 "Something went wrong with the game. Try to start a new game.",
                 getString(R.string.ok), new CloseAppListener());
 
         Intent intent = getIntent();
         treasure = (Treasure)intent.getSerializableExtra("treasure");
         currentHintPos = intent.getIntExtra("currentHintPos", -1);
-        currentHint = treasure.getHints().get(currentHintPos);
 
         if (treasure == null){
             Log.d(TAG, "Treasure is null");
@@ -100,15 +93,17 @@ public class GestureActivity extends AppCompatActivity{
         }
         isLastHint = currentHintPos == (treasure.getHints().size() - 1);
 
-        currentHint = treasure.getHints().get(currentHintPos);
+        Hint currentHint = treasure.getHints().get(currentHintPos);
         if (currentHint == null){
             Log.d(TAG, "Hint is null");
             errorDialog.show();
             return;
         }
 
-        //TODO reenable
         gestureType = currentHint.getGestureType();
+        if (gestureType == GestureType.None){
+            errorDialog.show();
+        }
 
         failedTextView = (TextView) findViewById(R.id.failedTextView);
         tryAgainButton = (Button) findViewById(R.id.tryAgainButton);
@@ -176,21 +171,16 @@ public class GestureActivity extends AppCompatActivity{
         counterAlertDialog.cancel();
     }
 
-    private boolean startGestureTracking(){
-        if(gestureType == GestureType.None){
-            //TODO this should never happen
-            return true;
-        }
-        else if (gestureType == GestureType.Shake){
+    private void startGestureTracking(){
+        if (gestureType == GestureType.Shake){
             new GestureTimer(new ShakeSensorEventListener(), accelerometerSensor, null).start();
         }
         else if (gestureType == GestureType.Rotate){
             new GestureTimer(new OrientationSensorListener(), accelerometerSensor, magnetometerSensor).start();
         }
         else if (gestureType == GestureType.Clap){
-            new GestureTimer( new EightSensorListener(), proximitySensor, null).start();
+            new GestureTimer( new ProximityListener(), proximitySensor, null).start();
         }
-        return false;
     }
 
     private void registerListener(SensorEventListener listener, Sensor sensor1, Sensor sensor2){
@@ -216,11 +206,11 @@ public class GestureActivity extends AppCompatActivity{
                     long diffTime = (curTime - lastUpdate);
                     lastUpdate = curTime;
 
-                    x = sensorEvent.values[0];
-                    y = sensorEvent.values[1];
-                    z = sensorEvent.values[2];
+                    float x = sensorEvent.values[0];
+                    float y = sensorEvent.values[1];
+                    float z = sensorEvent.values[2];
 
-                    float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
+                    float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
 
                     if (speed > SHAKE_THRESHOLD) {
                         Log.d(TAG, "Shake detected w/ speed: " + speed);
@@ -244,14 +234,14 @@ public class GestureActivity extends AppCompatActivity{
         float[] mGravity;
         float[] mGeomagnetic;
 
-        public OrientationSensorListener() {
+        OrientationSensorListener() {
             pitchAvg = new DescriptiveStatistics(5);
             rollAvg = new DescriptiveStatistics(5);
         }
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            // TODO Auto-generated method stub
+
         }
 
         @Override
@@ -328,62 +318,31 @@ public class GestureActivity extends AppCompatActivity{
                 }
             }
 
-            if (rotationCount == 4)
+            if (rotationCount == 4){
+                Log.d(TAG, "Rotation successful");
                 success = true;
+            }
 
             Log.d(TAG, "Rotation count: " + rotationCount);
         }
     }
 
-    private class EightSensorListener implements SensorEventListener {
-        DescriptiveStatistics pitchAvg;
-        DescriptiveStatistics rollAvg;
-
-        float[] mGravity;
-        float[] mGeomagnetic;
-
-        public EightSensorListener() {
-            pitchAvg = new DescriptiveStatistics(5);
-            rollAvg = new DescriptiveStatistics(5);
-        }
+    private class ProximityListener implements SensorEventListener {
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            // TODO Auto-generated method stub
+
         }
 
         @Override
         public void onSensorChanged(SensorEvent event) {
 
             if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-                if (event.values[0] >= -SENSOR_SENSITIVITY && event.values[0] <= SENSOR_SENSITIVITY) {
+                int sensitivity = 4;
+                if (event.values[0] >= -sensitivity && event.values[0] <= sensitivity) {
                     success = true;
                 }
             }
-
-//            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
-//                mGravity = event.values;
-//            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-//                mGeomagnetic = event.values;
-//            if (mGravity != null && mGeomagnetic != null) {
-//                float R[] = new float[9];
-//                float I[] = new float[9];
-//                boolean success2 = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
-//                if (success2) {
-//                    float orientationData[] = new float[3];
-//                    SensorManager.getOrientation(R, orientationData);
-//                    pitchAvg.addValue(Math.toDegrees(orientationData[1]));
-//                    rollAvg.addValue(Math.toDegrees(orientationData[2]));
-//
-//                    long t = System.currentTimeMillis();
-//                    long delta = t - timeInMillis;
-//                    double x = Math.cos(delta);
-//                    double y = Math.sin(2*delta)/2;
-//                    Log.d(TAG, "x=" + x + " ourX=" + (pitchAvg.getMean() + 29.0)/100);
-//                    Log.d(TAG, "y=" + y + " ourY=" + (rollAvg.getMean() - 2.0)/100);
-//
-//                }
-//            }
         }
     }
 
@@ -408,23 +367,16 @@ public class GestureActivity extends AppCompatActivity{
 
             if (!success){
                 Log.d(TAG, "User failed to do the gesture");
-                failedTextView.setText("You failed to do the correct gesture.");
+                failedTextView.setText(getString(R.string.failed));
                 failedTextView.setVisibility(View.VISIBLE);
                 tryAgainButton.setVisibility(View.VISIBLE);
             }else{
-                TextView finishView = new TextView(GestureActivity.this);
-                String textToDisplay;
-                String okButtonText;
-                if (isLastHint){
-                    textToDisplay = "Congratulations, you have finished the game!";
-                    okButtonText = "OK";
-                }else{
-                    textToDisplay = "Great, you have finished this task.";
-                    okButtonText = "Proceed";
-                }
-                finishView.setText(textToDisplay);
                 Log.d(TAG, "User succeeded to finish the gesture");
-                new CustomAlertDialog(GestureActivity.this, finishView, okButtonText, new StartNewHintListener()).show();
+                if (isLastHint){
+                    new CustomAlertDialog(GestureActivity.this,  getString(R.string.gameFinished), getString(R.string.ok), new StartNewHintListener()).show();
+                }else{
+                    new CustomAlertDialog(GestureActivity.this,  getString(R.string.nextHint), getString(R.string.proceed), new StartNewHintListener()).show();
+                }
             }
             unregisterListener(listener, sensor1, sensor2);
         }

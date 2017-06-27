@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -64,14 +65,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // request permissions and depending on the user's input either continue initializing other
-        // variables dependent on those permissions or close the program
+        // request permissions
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         requestPermissions();
 
         treasureListView = (ListView)findViewById(R.id.treasuresList);
-        //TODO remove asserts, cause they work only in debug mode
-        assert treasureListView != null;
+        final Button startButton = (Button)findViewById(R.id.startButton);
+        if (treasureListView == null || startButton == null){
+            new CustomAlertDialog(MainActivity.this,
+                    "Something went wrong with the game. Try to start a new game.",
+                    getString(R.string.ok), new CloseAppListener());
+            return;
+        }
+
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
         treasureListView.setAdapter(adapter);
         treasureListView.setChoiceMode(CHOICE_MODE_SINGLE);
@@ -92,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button startButton = (Button)findViewById(R.id.startButton);
-        assert startButton != null;
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 start();
             }
         });
+
+        // fill the list of available games
         getTreasuresLists();
     }
 
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CODE) {
             // If request is cancelled, the result arrays are empty -> permission denied -> close the app
             if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {

@@ -8,4 +8,5 @@
     <string name="gameFinished">Congratulations, you have finished the game!</string>
     <string name="nextHint">Great, you have finished this task.</string>
     <string name="proceed">Proceed</string>
+    <string name="failed">You failed to do the correct gesture.</string>
 </resources>

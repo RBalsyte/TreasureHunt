@@ -1,4 +1,4 @@
 <resources>
-    <dimen name="compass_horizontal_margin">16dp</dimen>
-    <dimen name="compass_vertical_margin">16dp</dimen>
+    <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="vertical_margin">16dp</dimen>
 </resources>

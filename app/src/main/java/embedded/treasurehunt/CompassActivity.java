@@ -78,7 +78,6 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
     private ImageView arrowView;
 
     private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
     private Location mCurrentLocation;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -88,13 +87,11 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
     private float[] mGravity = new float[3];
     private float[] mGeomagnetic = new float[3];
     private float azimuth = 0f;
-    private float currectAzimuth = 0;
+    private float currectAzimuth = 0f;
 
     private Treasure treasure;
     private int currentHintPos;
     private Hint hint;
-
-    private CustomAlertDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +103,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
         treasure = (Treasure)intent.getSerializableExtra("treasure");
         currentHintPos = intent.getIntExtra("currentHintPos", -1);
 
-        errorDialog = new CustomAlertDialog(CompassActivity.this,
+        CustomAlertDialog errorDialog = new CustomAlertDialog(CompassActivity.this,
                 "Something went wrong with the game. Try to start a new game.",
                 getString(R.string.ok), new CloseAppListener());
 
@@ -213,8 +210,6 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
     }
 
     private void adjustArrow() {
-        //Log.d(TAG, "will set rotation from " + currectAzimuth + " to "+ azimuth);
-
         Animation an = new RotateAnimation(-currectAzimuth, -azimuth,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         currectAzimuth = azimuth;
@@ -227,7 +222,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
     }
 
     private void showMap(){
-        //TODO
+        // NOT IMPLEMENTED
     }
 
     private void startGesture(){
@@ -249,7 +244,6 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
         double latitudeDelta = deg2rad(latitude2-currentLocation.getLatitude());
         double longitudeDelta = deg2rad(longitude2-currentLocation.getLongitude());
 
-        // Theory from http://www.movable-type.co.uk/scripts/latlong.html
         // calculation must be done in radians
         // haversine = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2), where φ is latitude, λ is longitude
         // c = 2 ⋅ atan2( √a, √(1−a) )
@@ -260,8 +254,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
                 * Math.sin(longitudeDelta/2) * Math.sin(longitudeDelta/2);
 
         double b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        double distance = radius * b * 1000; //distance in meters
-        return distance;
+        return radius * b * 1000; //distance in meters
     }
 
     private double deg2rad(double degrees){
@@ -307,7 +300,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
                     float orientation[] = new float[3];
                     SensorManager.getOrientation(R, orientation);
                     azimuth = (float) Math.toDegrees(orientation[0]); // orientation
-                    azimuth = (azimuth + 360) % 360;
+                    azimuth = (azimuth + 360) % 360; // between 0 and 360
                     adjustArrow();
                 }
             }
@@ -334,24 +327,7 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
         }
     }
 
-    protected void startLocationUpdates(){
-        // Create the location request
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(UPDATE_INTERVAL)
-                .setFastestInterval(FASTEST_INTERVAL);
-        // Request permissions at runtime
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(CompassActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_LOCATION);
-        } else {
-            // Request location updates
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                    mLocationRequest, this);
-        }
-    }
+
 
     @Override
     public void onLocationChanged(Location location) {
@@ -364,23 +340,20 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
         double distance = calculateDistance(mCurrentLocation, hint.getLatitude(), hint.getLongitude());
         distanceTextView.setText(((int)distance) + "m");
         Log.d(TAG, "distance=" + distance);
+
+        gestureButton.setVisibility(View.INVISIBLE);
         if (distance < 5){
             statusTextView.setText(Status.GOAL.toString());
 
+            // no gesture required -> continue to the next hint
             if (hint.getGestureType() == GestureType.None){
-                TextView finishView = new TextView(CompassActivity.this);
-                String textToDisplay;
-                String okButtonText;
+
+                Log.d(TAG, "User succeeded to finish the gesture");
                 if (currentHintPos == (treasure.getHints().size() - 1)){
-                    textToDisplay = getString(R.string.gameFinished);
-                    okButtonText = getString(R.string.ok);
+                    new CustomAlertDialog(CompassActivity.this,  getString(R.string.gameFinished), getString(R.string.ok), new StartNewHintListener()).show();
                 }else{
-                    textToDisplay = getString(R.string.nextHint);
-                    okButtonText = getString(R.string.proceed);
+                    new CustomAlertDialog(CompassActivity.this,  getString(R.string.nextHint), getString(R.string.proceed), new StartNewHintListener()).show();
                 }
-                finishView.setText(textToDisplay);
-                Log.d("onFinish", "succeeded");
-                new CustomAlertDialog(CompassActivity.this, finishView, okButtonText, new StartNewHintListener()).show();
                 return;
             }
 
@@ -388,16 +361,12 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
             gestureButton.setText("Perform " + hint.getGestureType().toString());
         }else if (distance < 10){
             statusTextView.setText(Status.ALMOST.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
         }else if (distance < 100){
             statusTextView.setText(Status.CLOSE.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
         }else if (distance < 500){
             statusTextView.setText(Status.FAR.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
         }else {
             statusTextView.setText(Status.VERY_FAR.toString());
-            gestureButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -413,26 +382,21 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
-        //TODO handle exceptions
-        //If the error has a resolution, send an Intent to
-        //start a Google Play services activity to resolve error.
+        //If the error has a resolution, send an Intent to start a Google Play services activity to resolve the error.
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
                 connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-                /*
-                 * Thrown if Google Play services canceled the original
-                 * PendingIntent
-                 */
-            } catch (IntentSender.SendIntentException e) {
-                // Log the error
-                e.printStackTrace();
             }
-        } else {
-            /*
-             * If no resolution is available, display a dialog to the
-             * user with the error.
-             */
+            //Thrown if Google Play services canceled the original PendingIntent
+            catch (IntentSender.SendIntentException e) {
+                Toast.makeText(this, "Connection Failed. Please re-connect.", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, e.getMessage());
+            }
+        }
+        // display error dialog if no resolution available
+        else {
+            Toast.makeText(this, "Connection Failed. Please re-connect.", Toast.LENGTH_SHORT).show();
             Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }
@@ -448,12 +412,29 @@ public class CompassActivity extends AppCompatActivity implements ConnectionCall
 
         // Get last known recent location.
         Location lastKnown = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        // Note that this can be NULL if last location isn't already known.
         if (lastKnown != null) {
-            // Print current location if not null
             Log.d(TAG, "current location: " + lastKnown.toString());
             mCurrentLocation = lastKnown;
         }
         startLocationUpdates();
+    }
+
+    protected void startLocationUpdates(){
+        // Create the location request
+        LocationRequest mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTEST_INTERVAL);
+        // Request permissions at runtime
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(CompassActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
+        } else {
+            // Request location updates
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                    mLocationRequest, this);
+        }
     }
 }
